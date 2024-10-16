@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Stats Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #court {
+            width: 500px;
+            height: 400px;
+            background-color: #f0f0f0;
+            border: 2px solid #000;
+            position: relative;
+            margin: 20px 0;
+        }
+        .zone {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        .hot {
+            background-color: red;
+        }
+        .cold {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Basketball Stats Tracker</h1>
+
+<form id="statsForm">
+    <label for="shotType">Shot Type:</label>
+    <select id="shotType">
+        <option value="3pt">3-Point</option>
+        <option value="2pt">2-Point</option>
+        <option value="freeThrow">Free Throw</option>
+    </select>
+    <label for="zoneX">X Coordinate:</label>
+    <input type="number" id="zoneX" required>
+    <label for="zoneY">Y Coordinate:</label>
+    <input type="number" id="zoneY" required>
+    <button type="submit">Add Shot</button>
+</form>
+
+<div id="court"></div>
+
+<script>
+    const stats = [];
+    const court = document.getElementById('court');
+
+    document.getElementById('statsForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const shotType = document.getElementById('shotType').value;
+        const zoneX = parseInt(document.getElementById('zoneX').value);
+        const zoneY = parseInt(document.getElementById('zoneY').value);
+        
+        stats.push({ shotType, zoneX, zoneY });
+        drawZone(zoneX, zoneY);
+        calculateZones();
+        this.reset();
+    });
+
+    function drawZone(x, y) {
+        const zone = document.createElement('div');
+        zone.className = 'zone';
+        zone.style.left = `${x}px`;
+        zone.style.top = `${y}px`;
+        zone.style.width = '20px';
+        zone.style.height = '20px';
+        court.appendChild(zone);
+    }
+
+    function calculateZones() {
+        // Here, you would analyze the `stats` array to determine hot and cold zones
+        // This is a placeholder for demonstration purposes
+        console.log(stats);
+    }
+</script>
+
+</body>
+</html>
